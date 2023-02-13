@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>GITHUB ISSUES</h1>
+    <hr>
+    <div id="title"></div>
+    <h1 id="page"></h1>
+    <div id="flex">
+        <div id="btn"></div>
+        <div>
+            <button onclick="hanlde()" id="btn1">next</button>
+        </div>
+    </div>
+
+</body>
+<script>
+    let page = 1
+    document.getElementById("page").innerHTML = `Page : ${page}`
+    async function call() {
+        let uri = `https://api.github.com/repositories/1296269/issues?page=${page}&per_page=5`
+        const response = await fetch(uri, {
+            auth: {
+                username: "Chandu945",
+                password: "Chandu@940"
+            }
+        })
+        let res = await response.json()
+        let result = `
+    <ul id="li">
+        <li>${res[0].title}</li>
+        <li>${res[1].title}</li>
+        <li>${res[2].title}</li>
+        <li>${res[3].title}</li>
+        <li>${res[4].title}</li>
+        </ul>
+    `
+        document.getElementById("title").innerHTML = result
+    }
+    call()
+    let btn = true
+    async function hanlde() {
+        page++
+        if (page >= 1 && btn) {
+            document.getElementById("btn").innerHTML += `<button onclick="handle1()" id="new">back</button>`
+            btn = false
+        }
+        let arr1 = []
+
+        let main = document.getElementById("title")
+        let box = document.getElementById("li")
+        main.removeChild(box)
+        let uri = `https://api.github.com/repositories/1296269/issues?page=${page}&per_page=5`
+        const response = await fetch(uri, {
+            auth: {
+                username: "Chandu945",
+                password: "Chandu@940"
+            }
+        })
+        let res = await response.json()
+
+        document.getElementById("page").innerHTML = `Page : ${page}`
+        arr1.push(res.title)
+
+        let resul = `
+                    <ul id="li">
+                        <li>${res[0].title}</li>
+                        <li>${res[1].title}</li>
+                        <li>${res[2].title}</li>
+                        <li>${res[3].title}</li>
+                        <li>${res[4].title}</li>
+                        </ul>
+    `
+        document.getElementById("title").innerHTML = resul
+    }
+    async function handle1() {
+        if(page != 1){
+            page--
+        }
+        document.getElementById("page").innerHTML = `Page : ${page}`
+        if (page == 1) {
+            let main = document.getElementById("btn")
+            let box = document.getElementById("new")
+            main.removeChild(box)
+        }
+        if (page == 1) {
+            btn = true
+        }
+        let uri = `https://api.github.com/repositories/1296269/issues?page=${page}&per_page=5`
+        const response = await fetch(uri, {
+            auth: {
+                username: "Chandu945",
+                password: "Chandu@940"
+            }
+        })
+        let res = await response.json()
+        let resul = `
+                    <ul id="li">
+                        <li>${res[0].title}</li>
+                        <li>${res[1].title}</li>
+                        <li>${res[2].title}</li>
+                        <li>${res[3].title}</li>
+                        <li>${res[4].title}</li>
+                        </ul>
+    `
+        document.getElementById("title").innerHTML = resul
+    }
+</script>
+
+</html>
