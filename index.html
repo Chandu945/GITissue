@@ -17,7 +17,7 @@
     <div id="flex">
         <div id="btn"></div>
         <div>
-            <button onclick="hanlde()" id="btn1">next</button>
+            <button onclick="hanlde()" id="load_next">next</button>
         </div>
     </div>
 
@@ -50,7 +50,7 @@
     async function hanlde() {
         page++
         if (page >= 1 && btn) {
-            document.getElementById("btn").innerHTML += `<button onclick="handle1()" id="new">back</button>`
+            document.getElementById("btn").innerHTML += `<button onclick="handle1()" id="load_prev">back</button>`
             btn = false
         }
         let arr1 = []
@@ -88,7 +88,7 @@
         document.getElementById("page").innerHTML = `Page : ${page}`
         if (page == 1) {
             let main = document.getElementById("btn")
-            let box = document.getElementById("new")
+            let box = document.getElementById("load_prev")
             main.removeChild(box)
         }
         if (page == 1) {
